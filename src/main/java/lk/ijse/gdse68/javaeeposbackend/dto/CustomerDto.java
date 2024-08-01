@@ -14,4 +14,7 @@ public class CustomerDto implements Serializable {
     private String cusName;
     private String cusAddress;
     private double cusSalary;
+
+
 }
+//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

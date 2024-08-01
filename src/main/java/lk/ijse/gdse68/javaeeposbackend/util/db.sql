@@ -6,4 +6,3 @@ CREATE TABLE customer (
 );
 
 
-//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
