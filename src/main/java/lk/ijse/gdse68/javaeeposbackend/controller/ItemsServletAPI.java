@@ -165,7 +165,7 @@ public class ItemsServletAPI extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String code = req.getParameter("code");
+       // String code = req.getParameter("code");
         try (Connection connection = connectionPool.getConnection()){
             boolean isDeleted = itemBO.deleteItem(connection,code);
             if (isDeleted){
