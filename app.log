@@ -204,3 +204,6 @@
 21:47:25.053 [RMI TCP Connection(2)-127.0.0.1] INFO  l.i.g.j.c.CustomerServletAPI - Init method invoked
 21:47:25.217 [RMI TCP Connection(2)-127.0.0.1] INFO  l.i.g.j.controller.Customer - Init method invoked
 21:47:30.316 [RMI TCP Connection(2)-127.0.0.1] DEBUG l.i.g.j.controller.Customer - Connection initialized
+00:04:32.791 [RMI TCP Connection(2)-127.0.0.1] INFO  l.i.g.j.c.CustomerServletAPI - Init method invoked
+00:04:32.876 [RMI TCP Connection(2)-127.0.0.1] INFO  l.i.g.j.controller.Customer - Init method invoked
+00:04:36.015 [RMI TCP Connection(2)-127.0.0.1] DEBUG l.i.g.j.controller.Customer - Connection initialized

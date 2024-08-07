@@ -74,5 +74,5 @@ public class ItemsDAOImpl implements ItemsDAO {
             return pstm.executeUpdate()>0;
         }
     }
-    }
+
 }
