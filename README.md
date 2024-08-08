@@ -83,6 +83,7 @@ To set up and run the Shop Management project locally, follow these steps:
 &nbsp;2. Set up the back-end dependencies.  
 &nbsp;3. Configure the database connection.  
 &nbsp;4. Deploy the JavaEE application on the Apache Tomcat server.
+
 **Dependencies**
 ### Back-end
 * Java EE: Enterprise Edition of the Java platform for building robust and scalable enterprise applications.
@@ -100,14 +101,14 @@ To set up and run the Shop Management project locally, follow these steps:
 For detailed API documentation, please refer to the project’s Swagger UI available.
 - [Customer API documentation](https://documenter.getpostman.com/view/35385718/2sA3s1nrTc)
 - [Item API documentation](https://documenter.getpostman.com/view/35385718/2sA3rzLZ3N)
-- [Order API documentation](https://documenter.getpostman.com/view/35386302/2sA3s1mrUM)
+- [PlaceOrder API documentation](https://documenter.getpostman.com/view/35386302/2sA3s1mrUM)
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 <div align="center">
     <p>This project is licensed under the <a href="LICENSE">MIT License</a></p>
-    <p>© 2024 All Rights Reserved, Designed By <a href="https://github.com/sasobapriyanjana11">sasobapriyanjana11</a></p>
+    <p>© 2024 All Rights Reserved, Designed By <a href="https://github.com/sachiniJayasinghe">sachiniJayasinghe</a></p>
 </div>
    ## Contact
-    For any questions or issues, please reach out via the GitHub repository or email .[sasoba.zxc@gmail.com].
+    For any questions or issues, please reach out via the GitHub repository or email .[gunasekarasachini2003@gmail.com].
   
-   For any questions or issues, please reach out via the GitHub repository or email [sasoba.zxc@gmail.com](mailto:sasoba.zxc@gmail.com).
+   For any questions or issues, please reach out via the GitHub repository or email [gunasekarasachini2003@gmail.com](mailto:gunasekarasachini2003@gmail.com).
