@@ -32,15 +32,15 @@ The POS System Backend is a RESTful API that supports the frontend operations of
 ### Steps
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/sasobapriyanjana11/AAD-Assignment-POS-BackEnd.git
+   git clone https://github.com/sachiniJayasinghe/JakartaEE-POS-BackEnd.git
 2. **Configure the database**
-   - Create a MySQL database named `pos_system`.
+   - Create a MySQL database named `thogakade`.
    - 
    - Update the `persistence.xml` file with your MySQL credentials:
      
      ```xml
      <properties>
-         <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pos_system"/>
+         <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/thogakade"/>
          <property name="javax.persistence.jdbc.user" value="your_username"/>
          <property name="javax.persistence.jdbc.password" value="your_password"/>
          <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
@@ -98,10 +98,9 @@ To set up and run the Shop Management project locally, follow these steps:
 *The API will be available at `http://localhost:8080/`.*
 ## API Documentation
 For detailed API documentation, please refer to the project’s Swagger UI available.
-- [Customer API documentation](https://documenter.getpostman.com/view/35386302/2sA3s1mrUH)
-- [Item API documentation](https://documenter.getpostman.com/view/35386302/2sA3s1mrUK)
+- [Customer API documentation](https://documenter.getpostman.com/view/35385718/2sA3s1nrTc)
+- [Item API documentation](https://documenter.getpostman.com/view/35385718/2sA3rzLZ3N)
 - [Order API documentation](https://documenter.getpostman.com/view/35386302/2sA3s1mrUM)
-- [Order Details API documentation](https://documenter.getpostman.com/view/35386302/2sA3s1mrUN)
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 <div align="center">
