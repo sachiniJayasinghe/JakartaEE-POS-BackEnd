@@ -104,10 +104,12 @@ For detailed API documentation, please refer to the project’s Swagger UI avail
 - [PlaceOrder API documentation](https://documenter.getpostman.com/view/35386302/2sA3s1mrUM)
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
 <div align="center">
     <p>This project is licensed under the <a href="LICENSE">MIT License</a></p>
-    <p>© 2024 All Rights Reserved, Designed By <a href="https://github.com/sachiniJayasinghe">sachiniJayasinghe</a></p>
+    <p>© 2024 All Rights Reserved, Designed By<a href="https://github.com/sachiniJayasinghe">sachiniJayasinghe</a></p>
 </div>
+
    ## Contact
     For any questions or issues, please reach out via the GitHub repository or email .[gunasekarasachini2003@gmail.com].
   
