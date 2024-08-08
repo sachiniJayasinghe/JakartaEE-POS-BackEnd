@@ -11,7 +11,12 @@ import lk.ijse.gdse68.javaeeposbackend.bo.custom.PurchaseOrderBO;
 import lk.ijse.gdse68.javaeeposbackend.bo.custom.impl.PurchaseOrderBOImpl;
 import lk.ijse.gdse68.javaeeposbackend.dto.ItemsDto;
 import lk.ijse.gdse68.javaeeposbackend.dto.OrdersDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,6 +27,7 @@ import java.sql.SQLException;
 public class PlaceOrderServletAPI extends HttpServlet {
     PurchaseOrderBO purchaseOrderBO = new PurchaseOrderBOImpl();
     DataSource connectionPool;
+    private static final Logger logger = LoggerFactory.getLogger(PlaceOrderServletAPI.class);
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -46,9 +52,25 @@ public class PlaceOrderServletAPI extends HttpServlet {
             }
 
         } catch (IOException | SQLException | ClassNotFoundException e) {
+            logger.error("Error processing request", e); // Log the full stack trace
             resp.getWriter().write("Error processing request: " + e.getMessage());
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void init() throws ServletException {
+        try {
+            InitialContext ctx = new InitialContext();
+            Context envContext = (Context) ctx.lookup("java:/comp/env");
+            connectionPool = (DataSource) envContext.lookup("jdbc/thogakade");
+
+            if (connectionPool == null) {
+                throw new ServletException("DataSource lookup failed. DataSource is null.");
+            }
+            System.out.println("Connection pool initialized successfully.");
+        } catch (NamingException e) {
+            throw new ServletException("Cannot find JNDI resource", e);
         }
     }
 }

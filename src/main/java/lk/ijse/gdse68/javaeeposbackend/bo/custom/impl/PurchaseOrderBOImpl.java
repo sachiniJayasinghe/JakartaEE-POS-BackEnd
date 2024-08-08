@@ -28,6 +28,7 @@ public class PurchaseOrderBOImpl implements PurchaseOrderBO {
     ItemsDAO itemDAO = new ItemsDAOImpl();
     DataSource connectionPool;
 
+   
     @Override
     public CustomerDto searchCustomer(String id) throws SQLException, ClassNotFoundException {
         return null;

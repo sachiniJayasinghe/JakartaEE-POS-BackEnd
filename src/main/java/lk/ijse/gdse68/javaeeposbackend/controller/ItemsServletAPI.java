@@ -22,11 +22,14 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 @WebServlet(name = "item" ,urlPatterns = "/item" ,loadOnStartup = 3)
 public class ItemsServletAPI extends HttpServlet {
     ItemBO itemBO =new ItemBOImpl();
@@ -96,76 +99,113 @@ public class ItemsServletAPI extends HttpServlet {
         try (Connection connection = connectionPool.getConnection()) {
             Jsonb jsonb = JsonbBuilder.create();
 
-            ItemsDto itemDTO = jsonb.fromJson(req.getReader(), ItemsDto.class);
+            // Debugging: Print raw JSON input
+            String rawJson = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+            System.out.println("Received JSON: " + rawJson);
+
+            // Attempt to deserialize raw JSON
+            ItemsDto itemDTO;
+            try {
+                itemDTO = jsonb.fromJson(rawJson, ItemsDto.class);
+            } catch (JsonbException e) {
+                // Attempt to handle JSON array
+                ItemsDto[] itemsArray = jsonb.fromJson(rawJson, ItemsDto[].class);
+                if (itemsArray.length > 0) {
+                    itemDTO = itemsArray[0]; // Example: Take the first item from the array
+                } else {
+                    resp.getWriter().write("Empty JSON array received!!");
+                    return;
+                }
+            }
+
             System.out.println(itemDTO);
 
+            // Validate itemDTO fields
             if (itemDTO.getCode() == null || !itemDTO.getCode().matches("^(I00-)[0-9]{3}$")) {
                 resp.getWriter().write("Item id is empty or invalid!!");
                 return;
             } else if (itemDTO.getName() == null || !itemDTO.getName().matches("^[A-Za-z ]{4,}$")) {
                 resp.getWriter().write("Name is empty or invalid!!");
                 return;
-            } else if (itemDTO.getQty() <=0) {
-                resp.getWriter().write("Quantity is empty !!");
+            } else if (itemDTO.getQty() <= 0) {
+                resp.getWriter().write("Quantity is empty or invalid!!");
                 return;
-//            } else if (itemDTO.getPrice() <= 0) {
-//                resp.getWriter().write("price is invalid!!");
-//                return;
+            } else if (itemDTO.getPrice().compareTo(BigDecimal.ZERO) <= 0) {
+                resp.getWriter().write("Price is invalid!!");
+                return;
             }
 
+            // Attempt to save item
             boolean isSaved = itemBO.saveItem(connection, itemDTO);
             if (isSaved) {
                 resp.setStatus(HttpServletResponse.SC_CREATED);
             } else {
-                resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "failed to save item");
+                resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to save item");
             }
-        } catch (SQLIntegrityConstraintViolationException e) {
-            resp.sendError(HttpServletResponse.SC_CONFLICT, "Duplicate values. Please check again");
-        } catch (Exception e) {
-            e.printStackTrace();
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while processing the request.");
-        }    }
-
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try (Connection connection = connectionPool.getConnection()) {
-            Jsonb jsonb = JsonbBuilder.create();
-            ItemsDto itemDTO = jsonb.fromJson(req.getReader(), ItemsDto.class);
-            System.out.println(itemDTO);
-
-            if (itemDTO.getCode() == null || !itemDTO.getCode().matches("^(I00-)[0-9]{3}$")) {
-                resp.getWriter().write("item id is empty or invalid!");
-                return;
-            } else if (itemDTO.getName() == null || !itemDTO.getName().matches("^[A-Za-z ]{4,}$")) {
-                resp.getWriter().write("Name is empty or invalid! ");
-                return;
-            } else if (itemDTO.getQty() <=0) {
-                resp.getWriter().write("item qty is empty or invalid");
-                return;
-//            } else if (customerDTO.getSalary() <= 0) {
-//                resp.getWriter().write("Salary is empty or invalid!!");
-//                return;
-
-            }
-            boolean isUpdated = itemBO.updateItem(connection, itemDTO);
-            if (isUpdated) {
-                resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
-
-            } else {
-                resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "failed to update item");
-            }
-
-
         } catch (SQLIntegrityConstraintViolationException e) {
             resp.sendError(HttpServletResponse.SC_CONFLICT, "Duplicate values. Please check again");
         } catch (Exception e) {
             e.printStackTrace();
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while processing the request.");
         }}
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try (Connection connection = connectionPool.getConnection()) {
+            Jsonb jsonb = JsonbBuilder.create();
 
+            // Debugging: Print raw JSON input
+            String rawJson = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+            System.out.println("Received JSON: " + rawJson);
+
+            // Attempt to deserialize raw JSON
+            ItemsDto itemDTO;
+            try {
+                itemDTO = jsonb.fromJson(rawJson, ItemsDto.class);
+            } catch (JsonbException e) {
+                // Attempt to handle JSON array
+                ItemsDto[] itemsArray = jsonb.fromJson(rawJson, ItemsDto[].class);
+                if (itemsArray.length > 0) {
+                    itemDTO = itemsArray[0]; // Example: Take the first item from the array
+                } else {
+                    resp.getWriter().write("Empty JSON array received!!");
+                    return;
+                }
+            }
+
+            System.out.println(itemDTO);
+
+            // Validate itemDTO fields
+            if (itemDTO.getCode() == null || !itemDTO.getCode().matches("^(I00-)[0-9]{3}$")) {
+                resp.getWriter().write("Item id is empty or invalid!!");
+                return;
+            } else if (itemDTO.getName() == null || !itemDTO.getName().matches("^[A-Za-z ]{4,}$")) {
+                resp.getWriter().write("Name is empty or invalid!!");
+                return;
+            } else if (itemDTO.getQty() <= 0) {
+                resp.getWriter().write("Quantity is empty or invalid!!");
+                return;
+            } else if (itemDTO.getPrice().compareTo(BigDecimal.ZERO) <= 0) {
+                resp.getWriter().write("Price is invalid!!");
+                return;
+            }
+
+            // Attempt to save item
+            boolean isUpdated = itemBO.updateItem(connection, itemDTO);
+            if (isUpdated) {
+                resp.setStatus(HttpServletResponse.SC_CREATED);
+            } else {
+                resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to save item");
+            }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            resp.sendError(HttpServletResponse.SC_CONFLICT, "Duplicate values. Please check again");
+        } catch (Exception e) {
+            e.printStackTrace();
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while processing the request.");
+        }
+    }
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       // String code = req.getParameter("code");
+        String code = req.getParameter("code");
         try (Connection connection = connectionPool.getConnection()){
             boolean isDeleted = itemBO.deleteItem(connection,code);
             if (isDeleted){
