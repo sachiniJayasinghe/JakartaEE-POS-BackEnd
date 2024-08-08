@@ -48,7 +48,7 @@ public class CustomerServletAPI  extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        resp.setContentType("application/json");
+        //resp.setContentType("application/json");
         resp.setHeader("Access-Control-Allow-Origin", "*");
 
         String customerId = req.getParameter("customerId");
