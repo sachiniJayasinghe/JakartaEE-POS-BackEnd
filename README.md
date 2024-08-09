@@ -29,36 +29,11 @@ The POS System Backend is a RESTful API that supports the frontend operations of
 - Maven
 - MySQL
 - Apache Tomcat 10  
-### Steps
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/sachiniJayasinghe/JakartaEE-POS-BackEnd.git
-2. **Configure the database**
-   - Create a MySQL database named `thogakade`.
-   - 
-   - Update the `persistence.xml` file with your MySQL credentials:
-     
-     ```xml
-     <properties>
-         <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/thogakade"/>
-         <property name="javax.persistence.jdbc.user" value="your_username"/>
-         <property name="javax.persistence.jdbc.password" value="your_password"/>
-         <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-         <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
-         <property name="hibernate.hbm2ddl.auto" value="update"/>
-     </properties>
-     ```
-3. **Build the project**
-   ```bash
-   mvn clean install
-4. **Deploy to Tomcat**
-   
-   - Ensure Tomcat is installed and running.
-    - Copy the generated WAR file from the `target` directory to the Tomcat `webapps` directory.
-    - Restart Tomcat.
+
 ## Usage
 ### Running the Server
 After installation, run the server by starting Tomcat.
+
 ## Project Structure
    ### Back-end
    The back-end code is organized to follow best practices and maintainability. Important directories and files include:
@@ -77,6 +52,7 @@ The back-end codebase is further organized into the following packages:
 - **entity**: Entity classes representing database tables.
 - **dto**: Data Transfer Objects - classes used for data exchange between layers.
 - **filter**: Contains classes implementing filters for intercepting and processing requests.
+- 
 ## Getting Started
 To set up and run the Shop Management project locally, follow these steps:
 &nbsp;1. Clone the repository.  
@@ -111,6 +87,5 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 </div>
 
    ## Contact
-    For any questions or issues, please reach out via the GitHub repository or email .[gunasekarasachini2003@gmail.com].
   
    For any questions or issues, please reach out via the GitHub repository or email [gunasekarasachini2003@gmail.com](mailto:gunasekarasachini2003@gmail.com).
